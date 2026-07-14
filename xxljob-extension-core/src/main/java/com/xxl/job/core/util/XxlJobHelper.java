@@ -1,7 +1,7 @@
 package com.xxl.job.core.util;
 
 import com.xxl.job.core.glue.GlueTypeEnum;
-import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
+import com.xxl.job.core.constant.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.executor.ExecutorRouteStrategyEnum;
 import com.xxl.job.core.executor.ExecutorTriggerPeriodEnum;
 import com.xxl.job.core.executor.ScheduleTypeEnum;
