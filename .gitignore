@@ -54,6 +54,8 @@ transaction-logs
 
 ### Archives ###
 *.jar
+!.mvn/wrapper/maven-wrapper.jar
+!maven/maven-wrapper.jar
 *.war
 *.ear
 *.tar

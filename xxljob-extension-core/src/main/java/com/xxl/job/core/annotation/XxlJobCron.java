@@ -16,7 +16,7 @@
 package com.xxl.job.core.annotation;
 
 import com.xxl.job.core.glue.GlueTypeEnum;
-import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
+import com.xxl.job.core.constant.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.executor.ExecutorRouteStrategyEnum;
 import com.xxl.job.core.executor.MisfireStrategyEnum;
 import com.xxl.job.core.executor.ScheduleTypeEnum;
