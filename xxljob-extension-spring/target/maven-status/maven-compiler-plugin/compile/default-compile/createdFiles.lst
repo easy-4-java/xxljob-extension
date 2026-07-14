@@ -1,0 +1,5 @@
+com/xxl/job/spring/XxlJobAutoBindingAndMetricsSpringExecutor.class
+com/xxl/job/spring/metrics/MetricNames.class
+com/xxl/job/spring/metrics/MetricMethodJobHandler.class
+com/xxl/job/spring/metrics/XxlJobMetrics.class
+com/xxl/job/spring/XxlJobAutoBindingSpringExecutor.class
