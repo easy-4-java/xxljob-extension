@@ -53,8 +53,8 @@
 
     <properties>
         <!-- 项目版本与 Java 编译基线 -->
-        <revision>2.0.x.20260630-SNAPSHOT</revision>
-        <java.version>17</java.version>
+        <revision>3.0.x.20260630-SNAPSHOT</revision>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -295,7 +295,8 @@
                         <includes>
                             <include>**/*Tests.java</include>
                         </includes>
-                        <!-- 单 fork 避免跨 JVM 并发；xxl-job-admin Docker 集成测试共享同一服务端需顺序 -->
+                        <!-- 单 fork 顺序执行：嵌入式 Mock 可并行，真实 Docker (xxl-job-admin)
+                             共享同一服务端，且 admin 内置 '至少保留一个执行器' 约束不能并发 -->
                         <forkCount>1</forkCount>
                         <reuseForks>true</reuseForks>
                     </configuration>
