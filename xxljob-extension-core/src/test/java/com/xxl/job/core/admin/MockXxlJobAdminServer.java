@@ -1,4 +1,4 @@
-package com.xxl.job.spring.mock;
+package com.xxl.job.core.admin;
 
 import com.xxl.job.core.AdminVersion;
 import com.xxl.job.core.XxlJobConstants;
