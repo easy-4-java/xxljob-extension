@@ -295,6 +295,9 @@
                         <includes>
                             <include>**/*Tests.java</include>
                         </includes>
+                        <!-- 单 fork 避免跨 JVM 并发；xxl-job-admin Docker 集成测试共享同一服务端需顺序 -->
+                        <forkCount>1</forkCount>
+                        <reuseForks>true</reuseForks>
                     </configuration>
                 </plugin>
                 <!-- JaCoCo 代码覆盖率：注入 javaagent + verify 阶段输出 report 与覆盖率门禁 -->
