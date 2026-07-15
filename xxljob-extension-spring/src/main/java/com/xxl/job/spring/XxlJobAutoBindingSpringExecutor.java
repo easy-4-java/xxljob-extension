@@ -168,8 +168,8 @@ public class XxlJobAutoBindingSpringExecutor extends XxlJobSpringExecutor implem
                     continue;
                 }
 
-                // regist job handler (通过父类方法注册到执行器)
-                registJobHandler(xxlJob, bean, executeMethod);
+                // 注册到执行器（自定义方法，与父类方法名解耦）
+                registerJobHandlerInternal(xxlJob, bean, executeMethod);
                 // regist cron task info (for auto-binding to admin)
                 registJobHandlerCronTaskInfo(handlerName, xxlJobCron, bean, executeMethod);
             }
@@ -230,8 +230,8 @@ public class XxlJobAutoBindingSpringExecutor extends XxlJobSpringExecutor implem
             xxlJobInfo.setExecutorFailRetryCount(xxlJobCron.failRetryCount());
             // 调度过期策略
             xxlJobInfo.setMisfireStrategy(xxlJobCron.misfireStrategy().name());
-            // 阻塞处理策略
-            xxlJobInfo.setExecutorBlockStrategy(xxlJobCron.blockStrategy().name());
+            // 阻塞处理策略（注解声明为 String，保留原值，无需 name() 转换）
+            xxlJobInfo.setExecutorBlockStrategy(xxlJobCron.blockStrategy());
             // 任务超时时间
             xxlJobInfo.setExecutorTimeout(xxlJobCron.timeout());
             // 是否自启动
@@ -409,11 +409,12 @@ public class XxlJobAutoBindingSpringExecutor extends XxlJobSpringExecutor implem
     }
 
     /**
-     * 重写注册方法，支持 @XxlJobCron 独立使用（不依赖 @XxlJob）
-     * 当 xxlJob 为 null 时，从 @XxlJobCron 获取 handler 名称和生命周期方法
+     * 将 @XxlJob / @XxlJobCron 方法注册为 JobHandler（支持两个注解独立或组合使用）。
+     * <p>这是一个本类的私有方法，不覆盖父类 {@code XxlJobSpringExecutor} 的同名方法
+     * （该方法名在 xxl-job-core 不同版本中会变：{@code registJobHandler} / {@code registryJobHandler}），
+     * 也不依赖任何特定 SDK 路径——对执行器的注册通过 {@link XxlJobHandlerRegistrar} 反射完成。</p>
      */
-    @Override
-    protected void registJobHandler(XxlJob xxlJob, Object bean, Method executeMethod) {
+    protected void registerJobHandlerInternal(XxlJob xxlJob, Object bean, Method executeMethod) {
         // 获取 JobHandler 名称、init/destroy 方法
         String name = null;
         String initMethodName = null;

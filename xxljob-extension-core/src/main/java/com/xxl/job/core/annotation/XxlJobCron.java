@@ -16,7 +16,6 @@
 package com.xxl.job.core.annotation;
 
 import com.xxl.job.core.glue.GlueTypeEnum;
-import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.executor.ExecutorRouteStrategyEnum;
 import com.xxl.job.core.executor.MisfireStrategyEnum;
 import com.xxl.job.core.executor.ScheduleTypeEnum;
@@ -112,8 +111,13 @@ public @interface XxlJobCron {
 
 	/**
 	 * 阻塞处理策略
+	 * <p>值为 {@code xxl-job-core} 提供的 {@code ExecutorBlockStrategyEnum} 枚举的 {@code name()}，
+	 * 例如 {@code "SERIAL_EXECUTION"} / {@code "COVER_EARLY"} / {@code "DISCARD_LATER"}。
+	 * 使用 {@code String} 而非具体枚举类型，是为了消除对
+	 * {@code com.xxl.job.core.enums} / {@code com.xxl.job.core.constant} 包路径的编译期依赖，
+	 * 让本注解在 xxl-job-core 2.5 ~ 3.4+ 各版本下源码完全一致。</p>
 	 */
-	ExecutorBlockStrategyEnum blockStrategy() default ExecutorBlockStrategyEnum.COVER_EARLY;
+	String blockStrategy() default "COVER_EARLY";
 
 	/**
 	 * 调度过期策略
