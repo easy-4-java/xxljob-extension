@@ -26,13 +26,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>2.7.18</version>
+            <version>4.0.0</version>
         </dependency>
         <!-- Micrometer：metrics 扩展埋点（provided，由下游 starter/应用引入 actuator） -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-core</artifactId>
-            <version>1.9.17</version>
+            <version>1.14.14</version>
             <scope>provided</scope>
         </dependency>
         <!-- 编译期代码生成 -->
