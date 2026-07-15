@@ -20,7 +20,7 @@ class XxlJobHandlerRegistrarTests {
 
     @Test
     void privateConstructorIsInaccessible() throws Exception {
-        var ctor = XxlJobHandlerRegistrar.class.getDeclaredConstructor();
+        java.lang.reflect.Constructor<XxlJobHandlerRegistrar> ctor = XxlJobHandlerRegistrar.class.getDeclaredConstructor();
         ctor.setAccessible(true);
         ctor.newInstance();
     }

@@ -14,12 +14,15 @@ import kong.unirest.UnirestInstance;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * {@link XxlJobTemplate} 业务门面集成测试（V3_X 协议 + Mock server）。
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class XxlJobTemplateTests {
 
     private MockXxlJobAdminServer mock;

@@ -48,7 +48,7 @@ class XxlJobConstantsTests {
 
     @Test
     void privateConstructorIsInaccessible() throws Exception {
-        var ctor = XxlJobConstants.class.getDeclaredConstructor();
+        java.lang.reflect.Constructor<XxlJobConstants> ctor = XxlJobConstants.class.getDeclaredConstructor();
         ctor.setAccessible(true);
         assertThat(java.lang.reflect.Modifier.isPrivate(ctor.getModifiers())).isTrue();
         // 即使强制反射创建实例也应成功（确认可见性），不再抛错
