@@ -230,8 +230,8 @@ public class XxlJobAutoBindingSpringExecutor extends XxlJobSpringExecutor implem
             xxlJobInfo.setExecutorFailRetryCount(xxlJobCron.failRetryCount());
             // 调度过期策略
             xxlJobInfo.setMisfireStrategy(xxlJobCron.misfireStrategy().name());
-            // 阻塞处理策略（注解声明为 String，保留原值，无需 name() 转换）
-            xxlJobInfo.setExecutorBlockStrategy(xxlJobCron.blockStrategy());
+            // 阻塞处理策略（注解声明为强类型枚举，转换为 name() 字符串）
+            xxlJobInfo.setExecutorBlockStrategy(xxlJobCron.blockStrategy().name());
             // 任务超时时间
             xxlJobInfo.setExecutorTimeout(xxlJobCron.timeout());
             // 是否自启动

@@ -1,6 +1,7 @@
 package com.xxl.job.core.util;
 
 import com.xxl.job.core.glue.GlueTypeEnum;
+import com.xxl.job.core.constant.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.executor.ExecutorRouteStrategyEnum;
 import com.xxl.job.core.executor.ExecutorTriggerPeriodEnum;
 import com.xxl.job.core.executor.ScheduleTypeEnum;
@@ -24,9 +25,7 @@ public class XxlJobHelper {
      * @param executorHandler 行器，任务Handler名称
      * @param glueType GLUE类型	#com.xxl.job.core.glue.GlueTypeEnum
      * @param executorRouteStrategy 执行器路由策略 #com.xxl.job.core.executor.ExecutorRouteStrategyEnum
-     * @param executorBlockStrategy 阻塞处理策略（{@code ExecutorBlockStrategyEnum.name()}，
-     *                               可选值随 xxl-job-core 版本略有增减，常见:
-     *                               {@code "SERIAL_EXECUTION"} / {@code "COVER_EARLY"} / {@code "DISCARD_LATER"}）
+     * @param executorBlockStrategy 阻塞处理策略
      * @param callbackUri 回调url
      */
     public static XxlJobInfo buildJobInfo(Integer jobGroup,
@@ -37,7 +36,7 @@ public class XxlJobHelper {
                                           String executorHandler,
                                           GlueTypeEnum glueType,
                                           ExecutorRouteStrategyEnum executorRouteStrategy,
-                                          String executorBlockStrategy,
+                                          ExecutorBlockStrategyEnum executorBlockStrategy,
                                           String callbackUri) {
         XxlJobInfo jobInfo = new XxlJobInfo();
         jobInfo.setJobGroup(jobGroup);
@@ -46,7 +45,7 @@ public class XxlJobHelper {
         jobInfo.setExecutorHandler(executorHandler);
         jobInfo.setGlueType(glueType.name());
         jobInfo.setExecutorRouteStrategy(executorRouteStrategy.name());
-        jobInfo.setExecutorBlockStrategy(executorBlockStrategy);
+        jobInfo.setExecutorBlockStrategy(executorBlockStrategy.name());
         jobInfo.setExecutorParam(callbackUri);
         jobInfo.setScheduleType(scheduleType.name());
         jobInfo.setScheduleConf(scheduleConf);
