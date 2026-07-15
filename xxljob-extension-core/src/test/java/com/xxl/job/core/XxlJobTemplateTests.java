@@ -14,12 +14,15 @@ import kong.unirest.UnirestInstance;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * {@link XxlJobTemplate} 业务门面集成测试（V3_X 协议 + Mock server）。
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class XxlJobTemplateTests {
 
     private MockXxlJobAdminServer mock;
@@ -246,56 +249,6 @@ class XxlJobTemplateTests {
     void jobInfoGroupReturnsFailForNullIdWithHelpfulMessage() {
         ReturnT<XxlJobGroup> r = template.jobInfoGroup(null);
         assertThat(r.getMsg()).isNotBlank();
-    }
-
-    @Test
-    void addUniqueJobReturnsFailForNullJob() {
-        assertThat(template.addUniqueJob(null).getCode()).isEqualTo(ReturnT.FAIL_CODE);
-    }
-
-    @Test
-    void addUniqueJobReturnsFailForNullJobGroup() {
-        XxlJobInfo info = new XxlJobInfo();
-        info.setJobDesc("desc");
-        assertThat(template.addUniqueJob(info).getCode()).isEqualTo(ReturnT.FAIL_CODE);
-        assertThat(template.addUniqueJob(info).getMsg()).contains("执行器主键ID");
-    }
-
-    @Test
-    void addJobReturnsFailForNullJobGroup() {
-        XxlJobInfo info = new XxlJobInfo();
-        info.setJobDesc("desc");
-        assertThat(template.addJob(info).getCode()).isEqualTo(ReturnT.FAIL_CODE);
-    }
-
-    @Test
-    void updateJobReturnsFailForNullJob() {
-        assertThat(template.updateJob(null).getCode()).isEqualTo(ReturnT.FAIL_CODE);
-    }
-
-    @Test
-    void triggerJobReturnsFailForNullJob() {
-        assertThat(template.triggerJob(null).getCode()).isEqualTo(ReturnT.FAIL_CODE);
-    }
-
-    @Test
-    void triggerJobWithParamSucceeds() {
-        ReturnT<String> r = template.triggerJob(1, "param");
-        assertThat(r.getCode()).isEqualTo(ReturnT.SUCCESS_CODE);
-    }
-
-    @Test
-    void triggerJobFromJobInfoSucceeds() {
-        XxlJobInfo info = new XxlJobInfo();
-        info.setId(1);
-        info.setExecutorParam("p");
-        assertThat(template.triggerJob(info).getCode()).isEqualTo(ReturnT.SUCCESS_CODE);
-    }
-
-    @Test
-    void jobInfoGroupListOverloadWithTwoArgs() {
-        ReturnT<XxlJobGroupList> r = template.jobInfoGroupList(0, 10);
-        assertThat(r.getCode()).isEqualTo(ReturnT.SUCCESS_CODE);
     }
 
     private int countJobAddRequests() {

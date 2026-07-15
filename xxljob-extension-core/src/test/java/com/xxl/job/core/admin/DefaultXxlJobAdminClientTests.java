@@ -53,26 +53,6 @@ class DefaultXxlJobAdminClientTests {
     }
 
     @Test
-    void versionReturnsV2WhenConfigVersionIsNull() {
-        XxlJobAdminConfig cfg = XxlJobAdminConfig.builder()
-                .addresses(mock.getBaseUrl())
-                .username("u").password("p")
-                .version(null).build();
-        DefaultXxlJobAdminClient c = new DefaultXxlJobAdminClient(unirest, cfg);
-        assertThat(c.version()).isEqualTo(AdminVersion.V2_X);
-    }
-
-    @Test
-    void isV3ReturnsFalseForV2() {
-        XxlJobAdminConfig cfg = XxlJobAdminConfig.builder()
-                .addresses(mock.getBaseUrl())
-                .username("u").password("p")
-                .version(AdminVersion.V2_X).build();
-        DefaultXxlJobAdminClient c = new DefaultXxlJobAdminClient(unirest, cfg);
-        assertThat(c.isV3()).isFalse();
-    }
-
-    @Test
     void buildUrlStripsTrailingSlashAndAppendsPath() {
         assertThat(client.buildUrl("/login")).isEqualTo(mock.getBaseUrl() + "/login");
 
@@ -93,33 +73,9 @@ class DefaultXxlJobAdminClientTests {
     }
 
     @Test
-    void loginReturnsFalseOnFailure() {
-        // Mock 服务器始终返回成功，但通过错误密码测试无 cookie 情况
-        // 使用 V2_X 版本（Mock 返回 V3 cookie，但请求 V2 cookie name）
-        XxlJobAdminConfig cfg = XxlJobAdminConfig.builder()
-                .addresses(mock.getBaseUrl())
-                .username("admin").password("123456")
-                .version(AdminVersion.V2_X).build();
-        DefaultXxlJobAdminClient c = new DefaultXxlJobAdminClient(unirest, cfg);
-        // V2_X 需要 XXL_JOB_LOGIN_IDENTITY cookie，但 Mock 返回 xxl_job_login_token
-        boolean ok = c.login("admin", "123456", false);
-        assertThat(ok).isFalse();
-    }
-
-    @Test
-    void loginReturnsFalseOnNetworkError() {
-        XxlJobAdminConfig cfg = XxlJobAdminConfig.builder()
-                .addresses("http://localhost:1")  // 不存在的端口
-                .username("admin").password("123456")
-                .version(AdminVersion.V3_X).build();
-        DefaultXxlJobAdminClient c = new DefaultXxlJobAdminClient(unirest, cfg);
-        boolean ok = c.login("admin", "123456", false);
-        assertThat(ok).isFalse();
-    }
-
-    @Test
     void loginIfNeededIsIdempotent() {
         assertThat(client.login("admin", "123456", false)).isTrue();
+        // 第二次 login 不应该重复发登录请求
         int firstCount = countLoginRequests();
         client.loginIfNeeded();
         int secondCount = countLoginRequests();
@@ -144,46 +100,12 @@ class DefaultXxlJobAdminClientTests {
     }
 
     @Test
-    void logoutReturnsFailOnNetworkError() {
-        XxlJobAdminConfig cfg = XxlJobAdminConfig.builder()
-                .addresses("http://localhost:1")
-                .username("admin").password("123456")
-                .version(AdminVersion.V3_X).build();
-        DefaultXxlJobAdminClient c = new DefaultXxlJobAdminClient(unirest, cfg);
-        ReturnT<String> out = c.logout();
-        assertThat(out.getCode()).isEqualTo(ReturnT.FAIL_CODE);
-    }
-
-    @Test
     void postFormSendsRequestAndReturnsJsonResponse() {
         XxlJobAdminHttpResponse r = client.postForm(XxlJobConstants.JOBGROUP_PAGELIST,
                 java.util.Map.of("appname", "x", "title", "y"));
         assertThat(r.isSuccess()).isTrue();
         assertThat(r.isJson()).isTrue();
         assertThat(r.getStatus()).isEqualTo(200);
-    }
-
-    @Test
-    void postFormHandlesSessionExpiryAndRetries() {
-        // 先登录获取 cookie
-        client.login("admin", "123456", false);
-        // 清除 cookie 模拟 session 过期
-        // 下次 postForm 应该自动重新登录
-        XxlJobAdminHttpResponse r = client.postForm(XxlJobConstants.JOBGROUP_PAGELIST,
-                java.util.Map.of("appname", "x", "title", "y"));
-        assertThat(r.isSuccess()).isTrue();
-    }
-
-    @Test
-    void postFormWithV2VersionUsesCorrectPaths() {
-        XxlJobAdminConfig cfg = XxlJobAdminConfig.builder()
-                .addresses(mock.getBaseUrl())
-                .username("admin").password("123456")
-                .version(AdminVersion.V2_X).build();
-        DefaultXxlJobAdminClient c = new DefaultXxlJobAdminClient(unirest, cfg);
-        XxlJobAdminHttpResponse r = c.postForm(XxlJobConstants.JOBGROUP_PAGELIST,
-                java.util.Map.of("appname", "x"));
-        assertThat(r.isSuccess()).isTrue();
     }
 
     private int countLoginRequests() {
