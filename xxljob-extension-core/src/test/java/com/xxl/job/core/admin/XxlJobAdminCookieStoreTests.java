@@ -106,4 +106,80 @@ class XxlJobAdminCookieStoreTests {
         assertThat(store.buildCookieHeader("nonexistent"))
                 .contains("a=v1").contains("b=v2");
     }
+
+    @Test
+    void buildCookieHeaderPreferredNameReturnsAllWhenPreferredNotPresent() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("a=v1");
+        store.absorbOne("b=v2");
+        // preferredName 为 null 时返回所有 cookie
+        assertThat(store.buildCookieHeader(null))
+                .contains("a=v1").contains("b=v2");
+    }
+
+    @Test
+    void absorbOneHandlesNameOnlyCookie() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("theme=dark");
+        assertThat(store.get("theme")).isEqualTo("dark");
+    }
+
+    @Test
+    void absorbOneHandlesMultipleAttributes() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("session=abc123; Path=/; HttpOnly; Secure");
+        assertThat(store.get("session")).isEqualTo("abc123");
+    }
+
+    @Test
+    void absorbOneHandlesEmptyValue() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("token=");
+        assertThat(store.get("token")).isEqualTo("");
+    }
+
+    @Test
+    void absorbOneHandlesWhitespaceAroundNameValue() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("  token  =  abc123  ; Path=/");
+        assertThat(store.get("token")).isEqualTo("abc123");
+    }
+
+    @Test
+    void absorbOneHandlesEqualsSignInValue() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("token=abc=def=ghi; Path=/");
+        assertThat(store.get("token")).isEqualTo("abc=def=ghi");
+    }
+
+    @Test
+    void hasLoginCookieReturnsFalseForEmptyName() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("k=v");
+        assertThat(store.hasLoginCookie("")).isFalse();
+    }
+
+    @Test
+    void isEmptyReturnsTrueWhenNoCookies() {
+        assertThat(new XxlJobAdminCookieStore().isEmpty()).isTrue();
+    }
+
+    @Test
+    void isEmptyReturnsFalseAfterAbsorb() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("k=v");
+        assertThat(store.isEmpty()).isFalse();
+    }
+
+    @Test
+    void getReturnsNullForUnknownName() {
+        XxlJobAdminCookieStore store = new XxlJobAdminCookieStore();
+        store.absorbOne("k=v");
+        assertThat(store.get("missing")).isNull();
+    }
+
+    @Test
+    void getReturnsNullForEmptyStore() {
+        assertThat(new XxlJobAdminCookieStore().get("anything")).isNull();
+    }
 }
