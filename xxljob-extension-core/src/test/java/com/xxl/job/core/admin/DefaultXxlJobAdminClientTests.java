@@ -11,6 +11,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -42,7 +46,9 @@ class DefaultXxlJobAdminClientTests {
 
     @AfterEach
     void tearDown() {
-        if (mock != null) mock.close();
+        if (Objects.nonNull(mock)) {
+            mock.close();
+        }
         Unirest.shutDown();
     }
 
@@ -102,10 +108,17 @@ class DefaultXxlJobAdminClientTests {
     @Test
     void postFormSendsRequestAndReturnsJsonResponse() {
         XxlJobAdminHttpResponse r = client.postForm(XxlJobConstants.JOBGROUP_PAGELIST,
-                java.util.Map.of("appname", "x", "title", "y"));
+                formParameters());
         assertThat(r.isSuccess()).isTrue();
         assertThat(r.isJson()).isTrue();
         assertThat(r.getStatus()).isEqualTo(200);
+    }
+
+    private Map<String, Object> formParameters() {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("appname", "x");
+        parameters.put("title", "y");
+        return parameters;
     }
 
     private int countLoginRequests() {
