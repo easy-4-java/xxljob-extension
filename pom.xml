@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.hiwepy</groupId>
+    <groupId>io.github.easy4j</groupId>
     <artifactId>xxljob-extension</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>XXL-Job extension multi-module parent</description>
-    <url>https://github.com/hiwepy/xxljob-extension</url>
+    <url>https://github.com/easy-4-java/xxljob-extension</url>
 
     <licenses>
         <license>
@@ -28,9 +28,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:https://github.com/hiwepy/xxljob-extension.git</connection>
-        <developerConnection>scm:git:https://github.com/hiwepy/xxljob-extension.git</developerConnection>
-        <url>https://github.com/hiwepy/xxljob-extension</url>
+        <connection>scm:git:https://github.com/easy-4-java/xxljob-extension.git</connection>
+        <developerConnection>scm:git:https://github.com/easy-4-java/xxljob-extension.git</developerConnection>
+        <url>https://github.com/easy-4-java/xxljob-extension</url>
         <tag>HEAD</tag>
     </scm>
     <distributionManagement>
