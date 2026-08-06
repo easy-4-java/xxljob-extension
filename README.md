@@ -1,13 +1,10 @@
-[English](./README.md) | [简体中文](./README.zh-CN.md)
-
 # xxljob-extension
 
-![Java](https://img.shields.io/badge/Java-8-blue)
-![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+[English](./README.md) | [简体中文](./README.zh-CN.md)
 
-**XXL-Job admin Web API extension** — a pure-Java extension library for the XXL-Job admin console with version-aware API invocation, Cookie fault tolerance and multi-version protocol compatibility, plus an optional Spring integration module with Micrometer metrics.
+XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Job admin console with version-aware API invocation, Cookie fault tolerance and multi-version protocol compatibility, plus an optional Spring integration module with Micrometer metrics.
 
-**Navigation**
+## Table of Contents
 
 - [1. Project Overview](#1-project-overview)
 - [2. Features & Status](#2-features--status)

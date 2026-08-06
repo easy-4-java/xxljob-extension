@@ -1,13 +1,10 @@
-[English](./README.md) | [简体中文](./README.zh-CN.md)
-
 # xxljob-extension
 
-![Java](https://img.shields.io/badge/Java-8-blue)
-![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+[English](./README.md) | [简体中文](./README.zh-CN.md)
 
-**XXL-Job admin Web API 扩展** —— 基于 XXL-Job admin Web API 的纯 Java 扩展库，统一版本感知调用、Cookie 容错管理与多版本协议兼容；另提供带 Micrometer 指标的可选 Spring 集成模块。
+XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩展库，统一版本感知调用、Cookie 容错管理与多版本协议兼容；另提供带 Micrometer 指标的可选 Spring 集成模块。
 
-**导航**
+## 目录
 
 - [1. 项目概述](#1-项目概述)
 - [2. 能力与状态](#2-能力与状态)
