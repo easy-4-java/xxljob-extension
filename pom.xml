@@ -47,7 +47,11 @@
 
     <properties>
         
-        <revision>2.0.x.20260630-SNAPSHOT</revision>
+        <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
+		<maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+		<maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+		<revision>2.0.x.20260630-SNAPSHOT</revision>
         <java.version>17</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <maven.compiler.source>${java.version}</maven.compiler.source>
