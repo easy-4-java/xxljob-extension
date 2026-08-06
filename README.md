@@ -1,13 +1,10 @@
-[English](./README.md) | [简体中文](./README.zh-CN.md)
-
 # xxljob-extension
 
-![Java](https://img.shields.io/badge/Java-21-blue)
-![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+[English](./README.md) | [简体中文](./README.zh-CN.md)
 
-**XXL-Job admin Web API extension** — a pure-Java extension library for the XXL-Job admin console with version-aware API invocation, Cookie fault tolerance and multi-version protocol compatibility, plus an optional Spring integration module with Micrometer metrics.
+XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Job admin console with version-aware API invocation, Cookie fault tolerance and multi-version protocol compatibility, plus an optional Spring integration module with Micrometer metrics.
 
-**Navigation**
+## Table of Contents
 
 - [1. Project Overview](#1-project-overview)
 - [2. Features & Status](#2-features--status)
@@ -59,7 +56,7 @@
 | Business facade | Stable | `XxlJobTemplate`: login, job-group CRUD, job CRUD, start/stop/trigger, deduplicated add |
 | Executor annotation | Stable | `@XxlJobCron` (100% replaces `@XxlJob`, combinable) + cross-version reflective registration via `XxlJobHandlerRegistrar` |
 | Micrometer integration (spring) | Stable | `MetricMethodJobHandler` wraps handlers with metrics; `XxlJobMetrics` exposes callback queue metrics |
-| Multi-JDK lines | Stable | `feature/3.0.x` (JDK 8), `feature/2.0.x` (JDK 17), `feature/3.0.x` (JDK 21) |
+| Multi-JDK lines | Stable | `feature/1.0.x` (JDK 8), `feature/2.0.x` (JDK 17), `feature/3.0.x` (JDK 21) |
 
 ## 3. Requirements & Compatibility
 

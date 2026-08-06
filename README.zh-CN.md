@@ -1,13 +1,10 @@
-[English](./README.md) | [简体中文](./README.zh-CN.md)
-
 # xxljob-extension
 
-![Java](https://img.shields.io/badge/Java-21-blue)
-![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+[English](./README.md) | [简体中文](./README.zh-CN.md)
 
-**XXL-Job admin Web API 扩展** —— 基于 XXL-Job admin Web API 的纯 Java 扩展库，统一版本感知调用、Cookie 容错管理与多版本协议兼容；另提供带 Micrometer 指标的可选 Spring 集成模块。
+XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩展库，统一版本感知调用、Cookie 容错管理与多版本协议兼容；另提供带 Micrometer 指标的可选 Spring 集成模块。
 
-**导航**
+## 目录
 
 - [1. 项目概述](#1-项目概述)
 - [2. 能力与状态](#2-能力与状态)
@@ -59,7 +56,7 @@
 | 业务门面 | 稳定 | `XxlJobTemplate`：登录、执行器组 CRUD、任务 CRUD、start/stop/trigger、防重添加 |
 | 执行器注解 | 稳定 | `@XxlJobCron`（100% 替代 `@XxlJob`，可组合）+ `XxlJobHandlerRegistrar` 跨版本反射注册 |
 | Micrometer 集成（spring） | 稳定 | `MetricMethodJobHandler` 为 handler 包装指标；`XxlJobMetrics` 暴露回调队列指标 |
-| 多 JDK 版本线 | 稳定 | `feature/3.0.x`（JDK 8）、`feature/2.0.x`（JDK 17）、`feature/3.0.x`（JDK 21） |
+| 多 JDK 版本线 | 稳定 | `feature/1.0.x`（JDK 8）、`feature/2.0.x`（JDK 17）、`feature/3.0.x`（JDK 21） |
 
 ## 3. 环境要求与兼容性
 
