@@ -17,7 +17,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-        <developers>
+            <developers>
         <developer>
             <name>Loong Wan</name>
             <email>hiwepy@gmail.com</email>
