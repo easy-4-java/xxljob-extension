@@ -125,7 +125,7 @@
         </dependencies>
     </dependencyManagement>
 
-    <modules>
+    <dependencies><dependency><groupId>org.projectlombok</groupId><artifactId>lombok</artifactId><scope>provided</scope></dependency><dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId></dependency></dependencies><modules>
         <module>xxljob-extension-core</module>
         <module>xxljob-extension-spring</module>
     </modules>
@@ -219,4 +219,4 @@
             </plugins>
         </pluginManagement>
         </build>
-<dependencies><dependency><groupId>org.projectlombok</groupId><artifactId>lombok</artifactId><scope>provided</scope></dependency><dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId></dependency></dependencies></project>
+</project>
