@@ -4,7 +4,7 @@
 
 [![Java](https://img.shields.io/badge/Java-17-orange)](https://github.com/easy-4-java/xxljob-extension) [![License](https://img.shields.io/badge/license-Apache%202.0-green)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Job admin console with version-aware API invocation, Cookie fault tolerance and multi-version protocol compatibility, plus an optional Spring integration module with Micrometer metrics.
+XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Job admin console with version-aware API invocation, Cookie fault tolerance and multi-version protocol compatibility, plus an optional Spring Framework integration module.
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Jo
 - A version-aware API adapter that switches paths and parameters automatically: `V2_X` (2.x / 3.0 / 3.1), `V3_2_X` (3.2 hybrid) and `V3_X` (3.3+ full V3).
 - A session self-healing layer: expired sessions (302 or HTML login page) trigger an automatic re-login and one retry, transparent to business code.
 - An executor annotation `@XxlJobCron` (a 100% replacement for `@XxlJob`, combinable with it) with cross-version reflective `JobHandler` registration.
-- Micrometer integration in the `spring` module (`MetricMethodJobHandler`, `XxlJobMetrics`), auto-adapting to `spring-boot-actuator`.
+- Spring Boot auto-configuration and Micrometer integration are provided by the separate [`xxljob-spring-boot-starter`](https://github.com/easy-4-java/xxljob-spring-boot-starter) project.
 
 **What it is not**
 
@@ -44,7 +44,7 @@ XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Jo
 | Manage job groups / jobs from code | `XxlJobTemplate` CRUD + start/stop/trigger |
 | Support multiple admin versions in one codebase | `AdminVersion` routing (`V2_X` / `V3_2_X` / `V3_X`) |
 | Auto-register `@XxlJobCron` methods on startup | `XxlJobAutoBindingSpringExecutor` (spring module) |
-| Monitor job execution from Prometheus | Micrometer binders `MetricMethodJobHandler` / `XxlJobMetrics` (spring module) |
+| Integrate with Spring Boot and Prometheus | Use `xxljob-spring-boot-starter`, which depends on the matching extension version line |
 | Operate without Spring | `xxljob-extension-core` has zero Spring dependencies (enforced at build time) |
 
 ## 2. Features & Status
@@ -57,7 +57,7 @@ XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Jo
 | Session self-healing | Stable | On 302 / HTML login page responses, resets the session, re-logs in and retries once |
 | Business facade | Stable | `XxlJobTemplate`: login, job-group CRUD, job CRUD, start/stop/trigger, deduplicated add |
 | Executor annotation | Stable | `@XxlJobCron` (100% replaces `@XxlJob`, combinable) + cross-version reflective registration via `XxlJobHandlerRegistrar` |
-| Micrometer integration (spring) | Stable | `MetricMethodJobHandler` wraps handlers with metrics; `XxlJobMetrics` exposes callback queue metrics |
+| Spring Boot / Micrometer integration | External | Maintained by `xxljob-spring-boot-starter`; this repository remains independent from Spring Boot |
 | Multi-JDK lines | Stable | `feature/1.0.x` (JDK 8), `feature/2.0.x` (JDK 17), `feature/3.0.x` (JDK 21) |
 
 ## 3. Requirements & Compatibility
@@ -68,7 +68,7 @@ XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Jo
 | Maven | 3.0+ |
 | XXL-Job admin | 2.x / 3.0 / 3.1 (V2_X), 3.2 (V3_2_X), 3.3+ (V3_X) — selected via `AdminVersion`, not bound to the admin Maven version |
 | `xxl-job-core` (compat baseline) | 2.5.0 |
-| Spring integration (spring module) | `spring-boot-autoconfigure` 2.7.18, `micrometer-core` 1.9.17 |
+| Spring integration (spring module) | `spring-context` 6.2.19; no Spring Boot or Micrometer dependency |
 
 **Version line matrix**
 
@@ -78,7 +78,7 @@ XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Jo
 | `feature/2.0.x` | 17 | `2.0.x.*` |
 | `feature/3.0.x` | 21 | `3.0.x.*` |
 
-This document describes the `feature/2.0.x` line (current version: `2.0.x.x.20260630-SNAPSHOT`).
+This document describes the `feature/2.0.x` line (current version: `2.0.x.20260630-SNAPSHOT`).
 
 ## 4. Architecture & Modules
 
@@ -104,7 +104,7 @@ This document describes the `feature/2.0.x` line (current version: `2.0.x.x.2026
 | Module | Type | Responsibility |
 |:---|:---|:---|
 | `xxljob-extension-core` | Pure Java | Admin HTTP client, version-aware API adapter, models, `@XxlJobCron`, executor enums, utilities |
-| `xxljob-extension-spring` | Spring integration | Executor auto-binding (`@XxlJob` + `@XxlJobCron`), Micrometer metrics |
+| `xxljob-extension-spring` | Spring Framework integration | Executor auto-binding (`@XxlJob` + `@XxlJobCron`) |
 
 **Package layout** (`core`: `com.xxl.job.core`, `spring`: `com.xxl.job.spring`)
 
@@ -117,8 +117,7 @@ This document describes the `feature/2.0.x` line (current version: `2.0.x.x.2026
 | `core.constant` / `core.executor` | `ExecutorBlockStrategyEnum`, `ExecutorRouteStrategyEnum`, `ExecutorTriggerPeriodEnum`, `MisfireStrategyEnum`, `ScheduleTypeEnum` |
 | `core.model` | `ReturnT`, `XxlJobGroup`, `XxlJobGroupList`, `XxlJobInfo`, `XxlJobInfoList` |
 | `core.util` | `XxlJobHandlerRegistrar`, `XxlJobHelper` |
-| `spring` (root) | `XxlJobAutoBindingSpringExecutor`, `XxlJobAutoBindingAndMetricsSpringExecutor` |
-| `spring.metrics` | `MetricNames`, `MetricMethodJobHandler`, `XxlJobMetrics` |
+| `spring` (root) | `XxlJobAutoBindingSpringExecutor` |
 
 ## 5. Installation
 
@@ -133,22 +132,22 @@ Bring one or both modules as needed:
 <dependency>
     <groupId>io.github.easy4j</groupId>
     <artifactId>xxljob-extension-core</artifactId>
-    <version>2.0.x.x.20260630-SNAPSHOT</version>
+    <version>2.0.x.20260630-SNAPSHOT</version>
 </dependency>
 
-<!-- Spring Framework integration: executor auto-binding, Micrometer metrics -->
+<!-- Spring Framework integration: executor auto-binding -->
 <dependency>
     <groupId>io.github.easy4j</groupId>
     <artifactId>xxljob-extension-spring</artifactId>
-    <version>2.0.x.x.20260630-SNAPSHOT</version>
+    <version>2.0.x.20260630-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```gradle
-implementation 'io.github.easy4j:xxljob-extension-core:2.0.x.x.20260630-SNAPSHOT'
-implementation 'io.github.easy4j:xxljob-extension-spring:2.0.x.x.20260630-SNAPSHOT'
+implementation 'io.github.easy4j:xxljob-extension-core:2.0.x.20260630-SNAPSHOT'
+implementation 'io.github.easy4j:xxljob-extension-spring:2.0.x.20260630-SNAPSHOT'
 ```
 
 `core` does not depend on Spring; `spring` depends transitively on `core`.
@@ -244,7 +243,7 @@ public class MyJobs {
 }
 ```
 
-To enable Micrometer monitoring, replace `XxlJobAutoBindingSpringExecutor` with `XxlJobAutoBindingAndMetricsSpringExecutor` — handlers are then wired into the `MeterRegistry` automatically.
+For Spring Boot auto-configuration and Micrometer monitoring, add the matching `xxljob-spring-boot-starter` version line. Metrics deliberately live in the starter rather than this Spring Framework-only module.
 
 ## 7. Configuration
 
@@ -263,16 +262,6 @@ To enable Micrometer monitoring, replace `XxlJobAutoBindingSpringExecutor` with 
 | `connectTimeout` | e.g. `10_000` | Request timeout in ms |
 | `enableCookieManagement(false)` | `false` | Avoid strict validation of an invalid `Expires` on the remember-me Cookie |
 | `followRedirects(false)` | `false` | Let `postForm` recognize the logged-out state (302) and retry login |
-
-**Micrometer metric names (spring module)**
-
-| Metric | Type | Description |
-|:---|:---|:---|
-| `xxl.job.submitted` | Counter | Submitted job requests |
-| `xxl.job.running` | Gauge | Currently running job requests |
-| `xxl.job.completed` | Counter | Completed job requests |
-| `xxl.job.duration` | FunctionTimer | Job execution duration |
-| `xxl.job.queue.size` | Gauge | Callback queue size (unavailable on xxl-job-core 3.4+, where the internal queue was removed — skipped with a warning) |
 
 ## 8. Core Usage / API
 

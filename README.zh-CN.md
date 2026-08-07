@@ -4,7 +4,7 @@
 
 [![Java](https://img.shields.io/badge/Java-17-orange)](https://github.com/easy-4-java/xxljob-extension) [![License](https://img.shields.io/badge/license-Apache%202.0-green)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩展库，统一版本感知调用、Cookie 容错管理与多版本协议兼容；另提供带 Micrometer 指标的可选 Spring 集成模块。
+XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩展库，统一版本感知调用、Cookie 容错管理与多版本协议兼容；另提供可选的 Spring Framework 集成模块。
 
 ## 目录
 
@@ -30,7 +30,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 - 版本感知 API 适配器，自动切换路径与参数：`V2_X`（2.x / 3.0 / 3.1）、`V3_2_X`（3.2 混合）、`V3_X`（3.3+ 完整 V3）。
 - 会话自愈层：会话过期（302 或 HTML 登录页）时自动重置会话、重新登录并重试一次，业务无感。
 - 执行器注解 `@XxlJobCron`（100% 替代 `@XxlJob`，可与 `@XxlJob` 组合），跨版本反射注册 `JobHandler`。
-- `spring` 模块提供 Micrometer 集成（`MetricMethodJobHandler`、`XxlJobMetrics`），自动适配 `spring-boot-actuator`。
+- Spring Boot 自动配置与 Micrometer 集成由独立的 [`xxljob-spring-boot-starter`](https://github.com/easy-4-java/xxljob-spring-boot-starter) 项目提供。
 
 **它不是什么**
 
@@ -44,7 +44,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 | 从代码管理执行器组 / 任务 | `XxlJobTemplate` 的 CRUD + start/stop/trigger |
 | 一套代码兼容多个 admin 版本 | `AdminVersion` 路由（`V2_X` / `V3_2_X` / `V3_X`） |
 | 启动时自动注册 `@XxlJobCron` 方法 | `XxlJobAutoBindingSpringExecutor`（spring 模块） |
-| 通过 Prometheus 监控任务执行 | Micrometer 绑定器 `MetricMethodJobHandler` / `XxlJobMetrics`（spring 模块） |
+| 接入 Spring Boot 与 Prometheus | 使用依赖对应 extension 版本线的 `xxljob-spring-boot-starter` |
 | 无 Spring 环境使用 | `xxljob-extension-core` 零 Spring 依赖（构建期强制） |
 
 ## 2. 能力与状态
@@ -57,7 +57,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 | 会话自愈 | 稳定 | 响应 302 / HTML 登录页时自动重置会话、重新登录并重试一次 |
 | 业务门面 | 稳定 | `XxlJobTemplate`：登录、执行器组 CRUD、任务 CRUD、start/stop/trigger、防重添加 |
 | 执行器注解 | 稳定 | `@XxlJobCron`（100% 替代 `@XxlJob`，可组合）+ `XxlJobHandlerRegistrar` 跨版本反射注册 |
-| Micrometer 集成（spring） | 稳定 | `MetricMethodJobHandler` 为 handler 包装指标；`XxlJobMetrics` 暴露回调队列指标 |
+| Spring Boot / Micrometer 集成 | 外置 | 由 `xxljob-spring-boot-starter` 维护；本仓库保持不依赖 Spring Boot |
 | 多 JDK 版本线 | 稳定 | `feature/1.0.x`（JDK 8）、`feature/2.0.x`（JDK 17）、`feature/3.0.x`（JDK 21） |
 
 ## 3. 环境要求与兼容性
@@ -68,7 +68,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 | Maven | 3.0+ |
 | XXL-Job admin | 2.x / 3.0 / 3.1（V2_X）、3.2（V3_2_X）、3.3+（V3_X）—— 通过 `AdminVersion` 选择，不绑定 admin 的 Maven 版本 |
 | `xxl-job-core`（兼容基线） | 2.5.0 |
-| Spring 集成（spring 模块） | `spring-boot-autoconfigure` 2.7.18、`micrometer-core` 1.9.17 |
+| Spring 集成（spring 模块） | `spring-context` 6.2.19；不依赖 Spring Boot 或 Micrometer |
 
 **版本线矩阵**
 
@@ -78,7 +78,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 | `feature/2.0.x` | 17 | `2.0.x.*` |
 | `feature/3.0.x` | 21 | `3.0.x.*` |
 
-本文档描述 `feature/2.0.x` 版本线（当前版本：`2.0.x.x.20260630-SNAPSHOT`）。
+本文档描述 `feature/2.0.x` 版本线（当前版本：`2.0.x.20260630-SNAPSHOT`）。
 
 ## 4. 架构与模块
 
@@ -104,7 +104,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 | 模块 | 类型 | 职责 |
 |:---|:---|:---|
 | `xxljob-extension-core` | 纯 Java | Admin HTTP 客户端、版本感知 API 适配、模型、`@XxlJobCron`、执行器枚举、工具 |
-| `xxljob-extension-spring` | Spring 集成 | 执行器自动绑定（`@XxlJob` + `@XxlJobCron`）、Micrometer 指标 |
+| `xxljob-extension-spring` | Spring Framework 集成 | 执行器自动绑定（`@XxlJob` + `@XxlJobCron`） |
 
 **包结构**（`core`：`com.xxl.job.core`，`spring`：`com.xxl.job.spring`）
 
@@ -117,8 +117,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 | `core.constant` / `core.executor` | `ExecutorBlockStrategyEnum`、`ExecutorRouteStrategyEnum`、`ExecutorTriggerPeriodEnum`、`MisfireStrategyEnum`、`ScheduleTypeEnum` |
 | `core.model` | `ReturnT`、`XxlJobGroup`、`XxlJobGroupList`、`XxlJobInfo`、`XxlJobInfoList` |
 | `core.util` | `XxlJobHandlerRegistrar`、`XxlJobHelper` |
-| `spring`（根包） | `XxlJobAutoBindingSpringExecutor`、`XxlJobAutoBindingAndMetricsSpringExecutor` |
-| `spring.metrics` | `MetricNames`、`MetricMethodJobHandler`、`XxlJobMetrics` |
+| `spring`（根包） | `XxlJobAutoBindingSpringExecutor` |
 
 ## 5. 安装
 
@@ -133,22 +132,22 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 <dependency>
     <groupId>io.github.easy4j</groupId>
     <artifactId>xxljob-extension-core</artifactId>
-    <version>2.0.x.x.20260630-SNAPSHOT</version>
+    <version>2.0.x.20260630-SNAPSHOT</version>
 </dependency>
 
-<!-- Spring Framework 集成：执行器自动绑定、Micrometer 指标 -->
+<!-- Spring Framework 集成：执行器自动绑定 -->
 <dependency>
     <groupId>io.github.easy4j</groupId>
     <artifactId>xxljob-extension-spring</artifactId>
-    <version>2.0.x.x.20260630-SNAPSHOT</version>
+    <version>2.0.x.20260630-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```gradle
-implementation 'io.github.easy4j:xxljob-extension-core:2.0.x.x.20260630-SNAPSHOT'
-implementation 'io.github.easy4j:xxljob-extension-spring:2.0.x.x.20260630-SNAPSHOT'
+implementation 'io.github.easy4j:xxljob-extension-core:2.0.x.20260630-SNAPSHOT'
+implementation 'io.github.easy4j:xxljob-extension-spring:2.0.x.20260630-SNAPSHOT'
 ```
 
 `core` 不依赖 Spring；`spring` 传递依赖 `core`。
@@ -244,7 +243,7 @@ public class MyJobs {
 }
 ```
 
-如需启用 Micrometer 监控，将 `XxlJobAutoBindingSpringExecutor` 替换为 `XxlJobAutoBindingAndMetricsSpringExecutor`，handler 会自动接入 `MeterRegistry`。
+如需 Spring Boot 自动配置与 Micrometer 监控，请引入对应版本线的 `xxljob-spring-boot-starter`。指标能力有意放在 starter 中，而不是本 Spring Framework 模块中。
 
 ## 7. 配置
 
@@ -263,16 +262,6 @@ public class MyJobs {
 | `connectTimeout` | 如 `10_000` | 请求超时（毫秒） |
 | `enableCookieManagement(false)` | `false` | 规避 remember-me Cookie 无效 `Expires` 的严格校验 |
 | `followRedirects(false)` | `false` | 让 `postForm` 识别未登录状态（302）并重试登录 |
-
-**Micrometer 指标名（spring 模块）**
-
-| 指标 | 类型 | 说明 |
-|:---|:---|:---|
-| `xxl.job.submitted` | Counter | 已提交的任务请求 |
-| `xxl.job.running` | Gauge | 正在运行的任务请求 |
-| `xxl.job.completed` | Counter | 已完成的任务请求 |
-| `xxl.job.duration` | FunctionTimer | 任务执行耗时 |
-| `xxl.job.queue.size` | Gauge | 回调队列大小（xxl-job-core 3.4+ 内部队列被移除后不可用，跳过并记录 warning） |
 
 ## 8. 核心用法 / API
 

@@ -324,7 +324,7 @@ public class XxlJobAutoBindingSpringExecutor extends XxlJobSpringExecutor implem
                     }
                 } else {
                     Optional<XxlJobInfo> optional = jobInfoList.getData().stream().filter(jobInfo -> jobInfo.getExecutorHandler().equals(xxlJobInfo.getExecutorHandler())).findFirst();
-                    if (optional.isEmpty()) {
+                    if (!optional.isPresent()) {
                         log.warn(">>>>>>>>>>> ExecutorHandler = {} 在 noneMatch 判断后未找到匹配项，跳过更新", xxlJobInfo.getExecutorHandler());
                         continue;
                     }
