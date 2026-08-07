@@ -266,6 +266,12 @@
         </pluginManagement>
         <plugins>
 
+            <!-- 生成可被下游直接消费的 POM，解析 ${revision} 等 CI Friendly 占位符。 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+
             <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
             <plugin>
                 <!-- 覆盖率插件：生成覆盖率报告并校验测试覆盖率（目标 90%） -->
