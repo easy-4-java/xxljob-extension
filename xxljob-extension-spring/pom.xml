@@ -22,18 +22,10 @@
             <artifactId>xxljob-extension-core</artifactId>
             <version>${revision}</version>
         </dependency>
-        <!-- Spring Framework：Bean 扫描、ApplicationContext、生命周期（由 spring-boot-autoconfigure 传递 beans/context/core） -->
+        <!-- Spring Framework：Bean 扫描、ApplicationContext、生命周期（版本由父 pom 统一管理） -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-        <!-- Micrometer：metrics 扩展埋点（provided，由下游 starter/应用引入 actuator） -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-core</artifactId>
-            <version>${micrometer.version}</version>
-            <scope>provided</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
         <!-- 编译期代码生成 -->
         <dependency>
