@@ -67,7 +67,7 @@ XXL-Job admin Web API 扩展 —— 基于 XXL-Job admin Web API 的纯 Java 扩
 | JDK | 17+（`feature/2.0.x` 分支基线） |
 | Maven | 3.0+ |
 | XXL-Job admin | 2.x / 3.0 / 3.1（V2_X）、3.2（V3_2_X）、3.3+（V3_X）—— 通过 `AdminVersion` 选择，不绑定 admin 的 Maven 版本 |
-| `xxl-job-core`（兼容基线） | 2.5.0 |
+| `xxl-job-core`（兼容基线） | 3.3.2 |
 | Spring 集成（spring 模块） | `spring-context` 6.2.19；不依赖 Spring Boot 或 Micrometer |
 
 **版本线矩阵**
