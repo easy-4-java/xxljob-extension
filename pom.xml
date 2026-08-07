@@ -68,6 +68,7 @@
         <unirest-java.version>3.14.5</unirest-java.version>
         <fastjson2.version>2.0.62</fastjson2.version>
         <spring-boot.version>2.7.18</spring-boot.version>
+        <spring-framework.version>5.3.31</spring-framework.version>
         <micrometer.version>1.9.17</micrometer.version>
         <!-- Dependency versions -->
         <slf4j.version>2.0.18</slf4j.version>
@@ -112,6 +113,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-autoconfigure</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- For Spring Framework（spring 模块按 spring-boot 版本线对齐对应 spring-context 版本） -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring-framework.version}</version>
             </dependency>
             <!-- For Micrometer -->
             <dependency>
