@@ -66,10 +66,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <xxl-job.version>2.5.0</xxl-job.version>
         <unirest-java.version>3.14.5</unirest-java.version>
-        <fastjson2.version>2.0.62</fastjson2.version>
-        <spring-boot.version>2.7.18</spring-boot.version>
-        <spring-framework.version>5.3.31</spring-framework.version>
-        <micrometer.version>1.9.17</micrometer.version>
+        <fastjson2.version>2.0.64</fastjson2.version>
+        <spring-framework.version>5.3.39</spring-framework.version>
         <!-- Dependency versions -->
         <slf4j.version>2.0.18</slf4j.version>
         <lombok.version>1.18.46</lombok.version>
@@ -84,7 +82,7 @@
         <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
     
-		<junit-jupiter.version>5.11.4</junit-jupiter.version>
+		<junit-jupiter.version>5.14.4</junit-jupiter.version>
 		<commons-lang.version>2.6</commons-lang.version></properties>
 
     <!-- 依赖版本统一管理（dependencyManagement） -->
@@ -108,23 +106,11 @@
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
             </dependency>
-            <!-- For Spring Boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-autoconfigure</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
             <!-- For Spring Framework（spring 模块按 spring-boot 版本线对齐对应 spring-context 版本） -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring-framework.version}</version>
-            </dependency>
-            <!-- For Micrometer -->
-            <dependency>
-                <groupId>io.micrometer</groupId>
-                <artifactId>micrometer-core</artifactId>
-                <version>${micrometer.version}</version>
             </dependency>
             <!-- For Slf4j -->
             <dependency>
