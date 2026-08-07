@@ -67,10 +67,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <xxl-job.version>3.4.2</xxl-job.version>
         <unirest-java.version>3.14.5</unirest-java.version>
-        <fastjson2.version>2.0.62</fastjson2.version>
-        <spring-boot.version>4.1.0</spring-boot.version>
+        <fastjson2.version>2.0.64</fastjson2.version>
         <spring-framework.version>7.0.8</spring-framework.version>
-        <micrometer.version>1.17.0</micrometer.version>
         <!-- Dependency versions -->
         <slf4j.version>2.0.18</slf4j.version>
         <lombok.version>1.18.46</lombok.version>
@@ -85,7 +83,7 @@
         <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
     
-		<junit-jupiter.version>6.1.0</junit-jupiter.version>
+		<junit-jupiter.version>6.1.2</junit-jupiter.version>
 		<commons-lang.version>2.6</commons-lang.version></properties>
 
     <!-- 依赖版本统一管理（dependencyManagement） -->
@@ -109,23 +107,11 @@
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
             </dependency>
-            <!-- For Spring Boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-autoconfigure</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
             <!-- For Spring Framework（spring 模块按 spring-boot 版本线对齐对应 spring-context 版本） -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring-framework.version}</version>
-            </dependency>
-            <!-- For Micrometer -->
-            <dependency>
-                <groupId>io.micrometer</groupId>
-                <artifactId>micrometer-core</artifactId>
-                <version>${micrometer.version}</version>
             </dependency>
             <!-- For Slf4j -->
             <dependency>
