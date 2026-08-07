@@ -67,7 +67,7 @@ XXL-Job admin Web API extension — a pure-Java extension library for the XXL-Jo
 | JDK | 21+ (baseline of the `feature/3.0.x` branch) |
 | Maven | 3.0+ |
 | XXL-Job admin | 2.x / 3.0 / 3.1 (V2_X), 3.2 (V3_2_X), 3.3+ (V3_X) — selected via `AdminVersion`, not bound to the admin Maven version |
-| `xxl-job-core` (compat baseline) | 2.5.0 |
+| `xxl-job-core` (compat baseline) | 3.4.2 |
 | Spring integration (spring module) | `spring-context` 7.0.8; no Spring Boot or Micrometer dependency |
 
 **Version line matrix**
