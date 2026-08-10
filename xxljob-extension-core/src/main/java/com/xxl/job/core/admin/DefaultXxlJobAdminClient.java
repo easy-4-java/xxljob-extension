@@ -21,6 +21,11 @@ import java.util.Map;
  * </p>
  */
 @Slf4j
+/**
+ * Default HTTP-based implementation of {@link XxlJobAdminClient} that communicates with the xxl-job admin server via its REST API.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class DefaultXxlJobAdminClient implements XxlJobAdminClient {
 
     private final UnirestInstance unirestInstance;

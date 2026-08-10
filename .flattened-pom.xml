@@ -5,7 +5,7 @@
     <artifactId>xxljob-extension</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://github.com/easy-4-java/${project.artifactId}</url>
-    <version>${revision}</version>
+    <version>1.0.x.20260630-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>XXL-Job extension multi-module parent</description>
 
@@ -267,7 +267,7 @@
         </pluginManagement>
         <plugins>
 
-            <!-- 生成可被下游直接消费的 POM，解析 ${revision} 等 CI Friendly 占位符。 -->
+            <!-- 生成可被下游直接消费的 POM，解析 1.0.x.20260630-SNAPSHOT 等 CI Friendly 占位符。 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>

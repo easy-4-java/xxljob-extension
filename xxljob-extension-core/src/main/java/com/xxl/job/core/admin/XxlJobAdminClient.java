@@ -6,10 +6,9 @@ import com.xxl.job.core.AdminVersion;
 import java.util.Map;
 
 /**
- * xxl-job-admin 统一 HTTP 客户端接口。
- * <p>
- * 职责：登录与会话管理、表单 POST、版本感知路径、线程安全 Cookie 存储。
- * </p>
+ * Contract for a client that communicates with the xxl-job admin server REST API.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public interface XxlJobAdminClient {
 

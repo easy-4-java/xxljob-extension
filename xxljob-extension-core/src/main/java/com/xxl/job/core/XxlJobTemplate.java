@@ -29,7 +29,9 @@ import com.xxl.job.core.model.XxlJobInfoList;
 import java.util.*;
 
 /**
- * xxl-job-admin 业务 API 门面，HTTP 通信委托给 {@link XxlJobAdminClient}。
+ * High-level template for interacting with the xxl-job admin REST API. Provides convenience methods for job CRUD, trigger, log查询, and registry operations.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public class XxlJobTemplate {
 

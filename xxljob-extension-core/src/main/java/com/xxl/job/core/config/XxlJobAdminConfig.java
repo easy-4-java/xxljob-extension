@@ -16,6 +16,11 @@ import lombok.Data;
  */
 @Data
 @Builder
+/**
+ * Configuration properties for connecting to the xxl-job admin server, including base URL, credentials, and API version.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobAdminConfig {
 
     /**

@@ -25,6 +25,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+/**
+ * Typed list wrapper for {@link XxlJobGroup} instances, used for JSON deserialization of admin API responses.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobGroupList implements Serializable {
 
 	/**

@@ -2,7 +2,9 @@ package com.xxl.job.core.executor;
 
 
 /**
- * @author xuxueli 2020-10-29 21:11:23
+ * Enumeration of schedule types supported by xxl-job, including CRON, fixed-rate, fixed-delay, and API-triggered.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public enum ScheduleTypeEnum {
 

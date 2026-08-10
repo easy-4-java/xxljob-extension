@@ -11,6 +11,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Static utility methods for xxl-job job handler implementations, providing access to context such as job parameters, log ID, and block strategy.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobHelper {
 
     private XxlJobHelper() {}
