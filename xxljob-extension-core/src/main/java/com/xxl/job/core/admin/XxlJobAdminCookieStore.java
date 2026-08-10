@@ -16,6 +16,11 @@ import java.util.stream.Collectors;
  * </p>
  */
 @Slf4j
+/**
+ * Thread-safe in-memory cookie store that maintains session cookies received from the xxl-job admin server.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobAdminCookieStore {
 
     private final Map<String, String> cookies = new ConcurrentHashMap<>();

@@ -1,7 +1,9 @@
 package com.xxl.job.core.executor;
 
 /**
- * 任务执行路由策略枚举类
+ * Enumeration of executor路由 strategies that determine how the admin selects which executor to route a job trigger to.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public enum ExecutorRouteStrategyEnum {
 

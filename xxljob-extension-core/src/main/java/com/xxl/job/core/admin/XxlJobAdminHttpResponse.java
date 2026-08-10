@@ -6,6 +6,11 @@ import lombok.Getter;
  * xxl-job-admin HTTP 响应封装，屏蔽底层 HTTP 客户端实现细节。
  */
 @Getter
+/**
+ * Value object封装 an HTTP response from the xxl-job admin server, including status code, body, and cookies.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobAdminHttpResponse {
 
     private final int status;

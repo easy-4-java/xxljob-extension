@@ -25,6 +25,11 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+/**
+ * Data model representing an xxl-job job definition, including schedule, handler, route strategy, and lifecycle metadata.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobInfo implements Serializable {
 
 	/**

@@ -1,7 +1,9 @@
 package com.xxl.job.core.executor;
 
 /**
- * 任务周期枚举类
+ * Enumeration of built-in trigger period presets (seconds, minutes, hours, etc.) for xxl-job scheduled tasks.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public enum ExecutorTriggerPeriodEnum {
 
