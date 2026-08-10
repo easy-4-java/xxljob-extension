@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 2. @XxlJobCron 独立使用（推荐，100% 替代 @XxlJob）
  * </p>
  *
- * @author ： <a href="https://github.com/hiwepy">wandl</a>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 @Slf4j
 public class XxlJobAutoBindingSpringExecutor extends XxlJobSpringExecutor implements DisposableBean {
