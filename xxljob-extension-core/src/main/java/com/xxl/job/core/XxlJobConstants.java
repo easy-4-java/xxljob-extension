@@ -3,6 +3,11 @@ package com.xxl.job.core;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Shared constants used across the xxl-job extension, including GlueType code mappings.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobConstants {
 
     private XxlJobConstants() {

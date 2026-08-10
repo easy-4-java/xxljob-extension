@@ -1,5 +1,10 @@
 package com.xxl.job.core.executor;
 
+/**
+ * Enumeration of misfire strategies that define what happens when a scheduled trigger is missed (e.g., fire once, do nothing).
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public enum MisfireStrategyEnum {
 
     /**

@@ -7,7 +7,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
- * 跨 xxl-job-core 版本注册 JobHandler（兼容 regist/registry、静态/实例方法差异）。
+ * Registry that stores job handler instances by name, allowing lookup and invocation of registered xxl-job handlers.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public final class XxlJobHandlerRegistrar {
 

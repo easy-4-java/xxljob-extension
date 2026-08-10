@@ -15,11 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * pageList 请求参数与响应体的版本适配器。
- * <p>
- * V2/V3_2：start + length → recordsTotal/recordsFiltered/data<br>
- * V3：offset + pagesize → {code, data: {total, data: [...]}}
- * </p>
+ * Adapter that deserializes the xxl-job admin paged list JSON response into a typed Java list.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public final class XxlJobAdminPageListAdapter {
 

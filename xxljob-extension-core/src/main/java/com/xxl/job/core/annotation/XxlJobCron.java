@@ -45,6 +45,11 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+/**
+ * Annotation that declares a cron expression for an xxl-job scheduled task, used for declarative job registration.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public @interface XxlJobCron {
 
 	/**

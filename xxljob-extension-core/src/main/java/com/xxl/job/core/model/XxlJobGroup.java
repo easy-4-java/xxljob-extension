@@ -28,6 +28,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+/**
+ * Data model representing an xxl-job executor group (application) with its metadata and address list.
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ */
 public class XxlJobGroup implements Serializable {
 
 	private int id;

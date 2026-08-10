@@ -3,12 +3,9 @@ package com.xxl.job.core.model;
 import java.io.Serializable;
 
 /**
- * Admin HTTP API 统一响应包装（与 xxl-job-admin JSON 协议对齐）。
- * <p>
- * 独立于 xxl-job-core 版本，避免 core 3.3+ 移除 {@code biz.model.ReturnT} 后编译失败。
- * </p>
+ * Generic return wrapper used by the xxl-job admin API to encapsulate response codes and data payloads.
  *
- * @param <T> 业务数据类型
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public class ReturnT<T> implements Serializable {
 

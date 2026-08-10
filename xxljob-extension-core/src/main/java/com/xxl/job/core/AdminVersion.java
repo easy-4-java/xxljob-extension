@@ -1,14 +1,9 @@
 package com.xxl.job.core;
 
 /**
- * xxl-job-admin Web API 协议版本（按 HTTP 路径选，非 admin Maven 版本号）。
+ * Enumeration of xxl-job-admin Web API protocol versions, selected by HTTP path prefix rather than the admin Maven artifact version.
  *
- * <p>版本对照（官方 xxl-job 分支比对）：
- * <ul>
- *   <li>{@link #V2_X}：2.x、3.0.0 ~ 3.1.x — /login、/jobgroup/save、/jobinfo/add、参数 id、Cookie XXL_JOB_LOGIN_IDENTITY</li>
- *   <li>{@link #V3_2_X}：3.2.0 混合协议 — 登录 /auth/doLogin + CRUD 仍 V2 路径、参数 id、Cookie xxl_job_login_token</li>
- *   <li>{@link #V3_X}：3.3.0+ 完整 V3 — /auth/doLogin、insert/delete、ids[]、offset/pagesize、Response JSON</li>
- * </ul>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public enum AdminVersion {
 
