@@ -144,10 +144,10 @@
         </dependency>
     </dependencies>
 
-    <modules>
-        <module>xxljob-extension-core</module>
-        <module>xxljob-extension-spring</module>
-    </modules>
+    <subprojects>
+        <subproject>xxljob-extension-core</subproject>
+        <subproject>xxljob-extension-spring</subproject>
+    </subprojects>
 
     <profiles>
 
